@@ -40,7 +40,7 @@ const usersRoutes: FastifyPluginAsync = async (fastify: FastifyInstance,
             const email = personaPost.email;
             const role = personaPost.role;
             const hashedPassword = await bcrypt.hash(personaPost.password, 10);
-    
+
             try {
                 const res = await query(
                     `INSERT INTO users
@@ -56,6 +56,13 @@ const usersRoutes: FastifyPluginAsync = async (fastify: FastifyInstance,
                 }
     
                 const id = res.rows[0].id;
+
+                fastify.mailer.sendMail({
+                    from: process.env.user,
+                    to: email,
+                    subject: 'Registro exitoso',
+                    text: `Hola ${name} ${lastname}, tu registro ha sido exitoso`
+                });
                 reply.code(201).send({
                     id,
                     name,
