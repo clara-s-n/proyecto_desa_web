@@ -6,6 +6,7 @@ services:
     container_name: backend-proyecto
     build:
       context: ./backend
+      target: development 
     command: sh -c "npm install && npm run dev"
     volumes:
       - ./backend:/backend
