@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0",
     "build": "ng build",
+    "gradle": "npm run build && npx cap sync && cd android && ./gradlew assembleDebug",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
