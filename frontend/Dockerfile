@@ -42,13 +42,13 @@ RUN apt-get autoremove -y \
 RUN chown -R 1000:1000 ${ANDROID_HOME}
 USER node:node
 EXPOSE 4200
-WORKDIR /front
+WORKDIR /frontend
 
 #build stage
 FROM development as build
-COPY --chown=1000:1000 ./package*.json /front
+COPY --chown=1000:1000 ./package*.json /frontend
 RUN npm install
-COPY --chown=1000:1000 . /front
+COPY --chown=1000:1000 . /frontend
 RUN npm run gradle
 # run gradle ya ejecuta run build
 
