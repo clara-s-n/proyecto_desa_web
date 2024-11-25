@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = 'https://localhost/backend/users/register'; 
+  private apiUrl = 'https://192.168.1.13/backend/users/register';
 
   // Método de registro
   async register(name: string, lastname: string, email: string, password: string): Promise<void> {
@@ -30,7 +30,7 @@ export class RegisterService {
 
       const data = await response.json();
       console.log('Registro exitoso:', data);
-    } 
+    }
     catch (error) {
       throw error;
     }

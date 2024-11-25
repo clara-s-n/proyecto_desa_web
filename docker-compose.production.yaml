@@ -1,0 +1,35 @@
+name: caso2
+services:
+  back:
+    image: ${REGISTRY_URL}/${NOMBRE_GRUPO}/${NOMBRE_PROYECTO}/back
+    container_name: back
+    environment:
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGHOST=${PGHOST}
+      - FRONTEND_URL=${FRONTEND_URL}
+  front:
+    image: ${REGISTRY_URL}/${NOMBRE_GRUPO}/${NOMBRE_PROYECTO}/front
+    container_name: front
+  base:
+    image: ${REGISTRY_URL}/${NOMBRE_GRUPO}/${NOMBRE_PROYECTO}/base
+    container_name: base
+    environment:
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    environment:
+      - FRONTEND_URL=${FRONTEND_URL}
+    volumes:
+      - ./proxy/myconf.template:/etc/nginx/templates/default.conf.template
+      - ./proxy/certs:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - front
+      - back

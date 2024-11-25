@@ -5,10 +5,12 @@ const config: CapacitorConfig = {
   appName: 'frontend',
   webDir: 'dist/frontend/browser/',
   server: {
-    allowNavigation: [
-      "*"
-    ]
-  }
+    androidScheme: 'https',
+    allowNavigation: ['localhost', '10.4.201.222'],
+  },
+  android: {
+    allowMixedContent: true, //mezclar http y https
+  },
 };
 
 export default config;
